@@ -7,3 +7,5 @@ vue add vuex
 git branch icon-add  //新建一个分支
 git checkout -b icon-add //切换到分支
 git branch -a //查看所有分支
+git push origin icon-add
+git merge master
