@@ -10,3 +10,10 @@ git branch -a //查看所有分支
 git push origin icon-add
 git merge origin/icon-add
 git push origin
+
+查看webpack配置  用链式递归
+npm i svg-sprite-loader -D
+
+vue inspect --rules
+vue inspect --rule svg
+vue inspect --rule icons  //配置完以后用

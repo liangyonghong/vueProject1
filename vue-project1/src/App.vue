@@ -1,12 +1,26 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">
+      <svg-icon icon-class="tb1"></svg-icon>
+      <!-- <svg>
+        <use xlink:href="#icon-tb1"></use>
+      </svg>   -->
+      Home</router-link> |
+      <router-link to="/about">
+      <svg-icon icon-class="tb2"></svg-icon>
+      About</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+// import '@/icon/svg/tb1.svg'
+export default {
+  
+}
+</script>
 
 <style>
 #app {
