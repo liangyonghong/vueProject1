@@ -1,0 +1,5 @@
+vue create vue-project1
+vue add router
+vue add vuex
+
+//运行：npm run serve
