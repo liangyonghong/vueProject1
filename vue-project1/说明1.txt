@@ -3,3 +3,7 @@ vue add router
 vue add vuex
 
 //运行：npm run serve
+
+git branch icon-add  //新建一个分支
+git checkout -b icon-add //切换到分支
+git branch -a //查看所有分支
