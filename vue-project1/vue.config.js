@@ -1,12 +1,25 @@
 const port = 7070
-const path = require("path")
+const path = require('path')
 
 const resolve = dir => path.join(__dirname,dir)
+
+console.log(process.env.foo);
+console.log(process.env.VUE_APP_DONG)
 
 module.exports = {
     publicPath:'/best-practice',
     devServer:{
-        port
+        port,
+        before:require('./mock/index.js')
+        // before: app=>{
+        //       app.get("/user/userinfo", (req, res) => {
+        //         const data = [{ggg:'111',jjj:'222'},{ggg:'111',jjj:'222'},];
+        //         res.json({
+        //           code: 1,
+        //           data: data
+        //         });
+        //       });
+        // }
     },
     // configureWebpack:{
     //     name:'lyh',
