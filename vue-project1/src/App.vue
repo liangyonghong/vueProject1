@@ -9,7 +9,9 @@
       Home</router-link> |
       <router-link to="/about">
       <svg-icon icon-class="tb2"></svg-icon>
-      About</router-link>
+      About</router-link> |
+      <router-link to="/mocktest">
+      Mock</router-link>
     </div>
     <router-view/>
   </div>
