@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock用户的增删改查练习</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/Mock.js/1.0.1-beta3/mock-min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    .delete,.edit{
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+    <div id="table">
+        <p>mock增删改查效果实现</p>
+        <div class="search">
+            <input type="text" placeholder="标题" v-model="filterInput"/>
+        </div>
+        <div class="add">
+            <input type="text" placeholder="姓名" v-model="obj.name"/>
+            <input type="text" placeholder="电话" v-model="obj.phone"/>
+            <input type="text" placeholder="邮箱" v-model="obj.email"/>
+            <button type="submit" @click="add" class="btn btn-primary">添加</button>
+            <button type="submit" @click="update" class="btn btn-primary">更新</button>
+        </div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>姓名</th>
+                <th>电话</th>
+                <th>邮箱</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="customer in filterUserList" :key="customer.id">
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.phone }}</td>
+                <td>{{ customer.email }}</td>
+                <td>
+                    <button class="btn btn-sm btn-default"  @click="edit(customer.id)">编辑</button>
+                    <button class="btn btn-sm btn-default"  @click="del(customer.id)">删除</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>MOCK="true"</script>
+<script src="./testIndex.js"></script>
+<script src="./user.js"></script>
+<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+<script>
+// $.ajax({
+//     url:'/user/userinfo',
+//     dataType:'json',
+//     success:(data)=>{
+//         console.log(data)
+//     }
+// })   
+window.onload = function(){  
+new Vue({
+    el:'#table',
+    data:{
+        obj:{}, //添加的数据
+        items:[],  //表格数据
+        filterInput:'',  //搜索框的数据
+    },
+    methods:{
+        getList:function(){
+            $.ajax({
+                url:'/getlist',
+                dataType:'json',
+                success:(data)=>{
+                    this.items = data;
+                }
+            }) 
+        },
+        add:function(){
+            if(!this.obj.name || !this.obj.phone || !this.obj.email ) return;
+            // $.ajax({
+            //     url:'/adduser',
+            //     data:this.obj,
+            //     type: 'POST',
+            //     dataType:'json',
+            //     success:(data)=>{
+            //         console.log(data);
+            //     }
+            // }) 
+            axios.post('/adduser',this.obj)
+            .then( res => {
+                console.log(res)
+                this.getList()
+            })
+            this.obj={};
+        },
+        del:function(i){
+            // this.items.splice(i,1);
+            axios.post('/deleteuser',i)
+            .then( res => {
+                console.log(res)
+                this.getList()
+            })
+        },
+        edit:function(item){
+            axios.post('/getuser' ,item)
+            .then( res => {
+                console.log(res)
+                this.obj = res.data
+            })
+        },
+        update:function(){
+            axios.post('/updateuser', this.obj)
+            .then( res => {
+                console.log(res);
+                this.getList()
+                this.obj={};
+            })
+        },
+    },
+    mounted(){
+        this.getList();
+    },
+    computed: {
+        filterUserList() {
+            var value = this.filterInput
+            value = '/' + value + '/i'
+            return this.items.filter( function (item) {
+                // 一定要使用 eval 函数先进行计算后再传入 match 中
+                return item.name.match(eval(value));
+            })
+            return false;
+        }
+  },
+})
+}
+</script>
+</html>
