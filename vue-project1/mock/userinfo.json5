@@ -1,0 +1,9 @@
+{
+    id:'@id',
+    username:'@cname',
+    date:'@date()',
+    avatar: "@Image('200x200','red','#fff','avatar')", //生成图片，参数size，background，foreground，text 
+    desription:'@paragraph()', //描述
+    ip:'@ip',
+    email:'@email()'
+}
