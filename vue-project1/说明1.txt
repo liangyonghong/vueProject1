@@ -17,3 +17,26 @@ npm i svg-sprite-loader -D
 vue inspect --rules
 vue inspect --rule svg
 vue inspect --rule icons  //配置完以后用
+
+
+git reset --hard step-1 //强制迁出step-1
+
+2.数据mock
+ npm install axios --save  //使用axios发送ajax
+ npm install mockjs --save-dev  //使用mock产生随机数据
+ npm install json5 --save-dev   //给json文件中添加注释
+
+ 运行:   node testMock.js
+ json5: node testJson5.js
+ 后端服务index：node index.js
+    根据devServe的before属性实现
+ 
+ mockjs在jquery中的使用
+ index和testIndex.js配合使用
+ user和user.js配合使用
+
+ nodejs express mongoDb 搭建后端登录接口
+ npm install express --save
+ 网站地址：www.expressjs.com.cn
+ 
+ 
